@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1 class="header">
+                <p>SLICE THAT URL</p>
+            </h1>
+            <div class="inner-containers urlContainer">
+                <input type="text" class="original-url-el">
+                <input type="submit" class="submit-el" value="SUBMIT">
+            </div>
+            <div class="inner-containers short-url-el">
+               
+                <img src="copy-alt.svg" id="copyBtn" alt="">
+            </div>
+            <div class="inner-containers qr-el">
+                <img src="share-square.svg" alt="">
+                <img src="qr.svg" class="qrButton-el" alt="">
+            </div>
+            <div class="qr-image-cont">
+                <img id="qr-image" src="" alt="">
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src='index.js'></script>
+</body>
+</html>
