@@ -1,45 +1,43 @@
 const submitBtn = document.querySelector('.submit-el')
 const originalUrl = document.querySelector('.original-url-el')
 const slicedUrl = document.querySelector('.short-url-el')
-const headerEl = document.querySelector('.header')
+const shortlink = document.getElementById('short-link')
 const qrBtnCont = document.querySelector('.qr-el')
+const qrBtn = document.querySelector('.qrButton-el')
 const qrCont = document.querySelector('.qr-image-cont')
 const qrImage = document.getElementById('qr-image')
-const qrBtn = document.querySelector('.qrButton-el')
 const copyBtn = document.getElementById('copyBtn')
+const warning = document.querySelector('.warning')
+const redirectEl = document.querySelector('.redirect-el')
 
-submitBtn.addEventListener ('click',async()=>{
-	try {
+submitBtn.addEventListener ('click',()=>{
 		if(originalUrl.value === ''){
 			alert('Please provide a Url')
 		}
-		if(isValidUrl(`${originalUrl.value}`)){
-			// proceed to shorten the url 
-			const shortUrl =  await urlSlicer()
-			slicedUrl.style.display = 'flex'
-			qrBtnCont.style.visibility = 'visible'
-			let paraEl = document.createElement('p')
-			paraEl.textContent = `localhost:5000/urlSlicer/${shortUrl}`
-			slicedUrl.appendChild(paraEl)
-		}
-	} catch (error) {
-			let paraEl = document.createElement('p')
-			paraEl.innerHTML = 'Invalid Url Provided'
-			headerEl.appendChild(paraEl)
-			setTimeout(()=>{
-				paraEl.style.display = 'none'
-			}, 2000)
-			return error
+		isValidUrl(`${originalUrl.value}`) ?
+		(async () => {
+		  const shortUrl = await urlSlicer();
+		  slicedUrl.style.display = 'flex';
+		  qrBtnCont.style.visibility = 'visible';
+		  shortlink.textContent = `localhost:5000/urlSlicer/${shortUrl}`;
+		  originalUrl.value = ''
+		})() :
+		(() => {
+		  warning.textContent = 'Invalid Url Provided'
+		  warning.classList.toggle('display')
+		  setTimeout(()=>{
+			warning.classList.toggle('display')
+			warning.textContent = '';
+		  },2000)
+		})();	
 	}
-	
-})
-
+)
 
 
 // Function to generate the qr image
 const qrGenerator = async()=>{
 	try {
-		qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${originalUrl.value}`
+		qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${shortlink.value}`
 		qrCont.classList.add('show')
 	} catch (error) {
 		console.log(error);
@@ -49,8 +47,6 @@ qrBtn.addEventListener('click', qrGenerator)
 
 //Function to slice the url
 const urlSlicer = async () => {
-    // const originalUrl = { originalUrl: originalUrl.value }; 
-
     try {
         // Make a POST request to create a new short URL
         const {data: {shorterUrl: {shortUrl}}} = await axios.post('http://localhost:5000/urlSlicer/original', {originalUrl: originalUrl.value});
@@ -61,7 +57,6 @@ const urlSlicer = async () => {
         throw error; // Re-throw the error to handle it in the calling code
     }
 };
-
 
 // Function to validate the url
  function isValidUrl(url){
@@ -74,9 +69,25 @@ const urlSlicer = async () => {
 	}
 }
 
-// Copy function
-// document.addEventListener('copy', (event) => {
-//     const selection = document.getSelection();
-//     event.clipboardData.setData('text/plain', selection.toString());
-//     event.preventDefault();
-// });
+// Copy button event
+	copyBtn.addEventListener('click', () => {
+		// Copy text to clipboard
+		const textToCopy = shortlink.textContent;
+		navigator.clipboard.writeText(textToCopy)
+			.then(() => {
+				// Show copy message
+				warning.textContent = 'Text copied!'
+				warning.classList.toggle('display');
+				setTimeout(() => {
+					warning.classList.toggle('display')
+					warning.textContent = ''
+				}, 2000);
+			})
+			.catch(err => {
+				console.error('Failed to copy text: ', err);
+			});
+	});
+
+redirectEl.addEventListener('click',()=>{
+	window.location.href = `http://${shortlink.textContent}`
+})

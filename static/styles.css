@@ -93,27 +93,50 @@ main .container .inner-containers .submit-el {
   font-weight: 500;
   background-color: rgba(255, 106, 0, 0.636);
 }
+main .container .warning {
+  width: 50%;
+  height: 0px;
+  font-weight: bold;
+  transition: height linear 300ms;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.619);
+  text-align: center;
+  color: rgb(255, 0, 0);
+}
+main .container .display {
+  height: 20px;
+}
 main .container .short-url-el {
-  height: 45px;
-  width: 80%;
-  margin: 20px 0px;
-  background-color: rgb(255, 255, 255);
+  height: 50px;
+  width: 60%;
+  margin: 10px 0px;
+  background-color: transparent;
   padding: 10px 0px;
   display: none;
+  align-items: center;
   justify-content: space-between;
   transition: height linear 300ms;
   border-radius: 7px;
 }
 main .container .short-url-el img {
-  height: inherit;
+  height: 40px;
+  width: 60px;
   padding: 0;
   margin: 0;
-  background: transparent;
+  border-radius: 4px;
+  background-color: rgba(255, 106, 0, 0.636);
 }
-main .container .short-url-el p {
-  width: 90%;
-  font-size: 1em;
-  color: rgb(0, 0, 0);
+main .container .short-url-el #short-link {
+  height: 40px;
+  width: 80%;
+  font-size: 0.7em;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  color: rgb(255, 255, 255);
+  background-color: black;
+  font-family: sans-serif;
+  border-right: 1px solid black;
 }
 main .container .qr-el {
   visibility: hidden;
@@ -128,11 +151,12 @@ main .container .qr-el {
 }
 .qr-image-cont #qr-image {
   width: 100%;
-  padding: 10px;
+  height: 100%;
 }
 
 .show {
-  max-height: 200px;
+  max-height: 300px;
+  padding: 10px;
   margin: 10px auto;
   background-color: black;
 }/*# sourceMappingURL=styles.css.map */
