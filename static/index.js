@@ -51,10 +51,10 @@ const urlSlicer = async () => {
         // Make a POST request to create a new short URL
         const {data: {shorterUrl: {shortUrl}}} = await axios.post('http://localhost:5000/urlSlicer/original', {originalUrl: originalUrl.value});
 		console.log(shortUrl);
-        return shortUrl; // Return the shortened URL
+        return shortUrl;
     } catch (error) {
         console.error('Error creating short URL:', error);
-        throw error; // Re-throw the error to handle it in the calling code
+        throw error;
     }
 };
 
@@ -70,12 +70,10 @@ const urlSlicer = async () => {
 }
 
 // Copy button event
-	copyBtn.addEventListener('click', () => {
-		// Copy text to clipboard
+	copyBtn.addEventListener('click', () => {	
 		const textToCopy = shortlink.textContent;
 		navigator.clipboard.writeText(textToCopy)
 			.then(() => {
-				// Show copy message
 				warning.textContent = 'Text copied!'
 				warning.classList.toggle('display');
 				setTimeout(() => {
