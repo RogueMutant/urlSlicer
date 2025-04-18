@@ -4,7 +4,7 @@
   "description": "an app to shorten url's",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "author": "Rilwan Jibril",
   "license": "ISC",
@@ -20,5 +20,6 @@
     "console-ninja": "^1.0.0",
     "eslint": "^9.1.1",
     "globals": "^15.1.0"
-  }
+  },
+  "keywords": []
 }

@@ -1,5 +1,7 @@
-const notFoundError = (req,res) => {
-    res.status(404).send('Route does not exist 🤔🤔')
-}
+const notFoundError = (req, res) => {
+  res
+    .status(404)
+    .json({ status: "Invalid", message: "Route does not exist 🤔🤔" });
+};
 
-module.exports = notFoundError
+module.exports = notFoundError;

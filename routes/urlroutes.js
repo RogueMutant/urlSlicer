@@ -1,7 +1,12 @@
-const express = require('express')
-const router = express.Router()
-const {getUrl, createUrl} = require('../controllers/urlController.js')
+const express = require("express");
+const router = express.Router();
+const {
+  getAllUrls,
+  getUrl,
+  createUrl,
+} = require("../controllers/urlController.js");
 
-router.get('/:urlId', getUrl)
-router.post('/original', createUrl)
-module.exports = router 
+router.get("/:urlId", getUrl);
+router.post("/original", createUrl);
+router.get("/all-urls", getAllUrls);
+module.exports = router;
